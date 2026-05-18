@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoalStream Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#090e1a;--bg1:#111827;--bg2:#1a2236;--bg3:#1e2d47;--red:#e63946;--orange:#f4a261;--t1:#f0f4ff;--t2:#8896b3;--t3:#4a5568;--b:rgba(255,255,255,0.07)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+.header{background:rgba(9,14,26,0.97);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100}
+.hi{max-width:1400px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:16px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
+.logo span{color:var(--red)}
+.nav{display:flex;gap:4px;margin-left:16px}
+.nb{background:transparent;border:none;color:var(--t2);font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.nb:hover{color:var(--t1);background:var(--bg2)}
+.nb.active{background:var(--red);color:#fff}
+.live{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--red);letter-spacing:1px;margin-left:auto}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.lbar{background:var(--bg1);border-bottom:1px solid var(--b);overflow-x:auto;scrollbar-width:none}
+.lbar::-webkit-scrollbar{display:none}
+.lbi{display:flex;gap:6px;padding:10px 20px;max-width:1400px;margin:0 auto;white-space:nowrap}
+.lb{background:transparent;border:1px solid var(--b);color:var(--t2);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.lb:hover{border-color:var(--red);color:var(--t1)}
+.lb.active{background:var(--red);border-color:var(--red);color:#fff}
+.main{max-width:1400px;margin:0 auto;padding:20px;display:grid;grid-template-columns:300px 1fr;gap:20px}
+.sidebar{background:var(--bg1);border-radius:16px;border:1px solid var(--b);overflow:hidden;max-height:calc(100vh - 155px);display:flex;flex-direction:column;position:sticky;top:80px}
+.sbh{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--b)}
+.sbt{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px}
+.rbtn{background:transparent;border:1px solid var(--b);color:var(--t2);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;transition:all 0.3s;display:flex;align-items:center;justify-content:center}
+.rbtn:hover{color:var(--red);border-color:var(--red);transform:rotate(180deg)}
+.ml{overflow-y:auto;flex:1;padding:8px;scrollbar-width:thin}
+.sk{height:72px;background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);background-size:200% 100%;border-radius:10px;margin-bottom:8px;animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.mc{background:var(--bg2);border:1px solid var(--b);border-radius:10px;padding:10px 12px;margin-bottom:6px;cursor:pointer;transition:all 0.2s}
+.mc:hover{border-color:rgba(230,57,70,0.5);background:var(--bg3)}
+.mc.active{border-color:var(--red);background:rgba(230,57,70,0.1)}
+.mct{font-size:13px;font-weight:600;margin-bottom:4px}
+.mcl{font-size:11px;color:var(--t2);margin-bottom:4px}
+.mcb{display:flex;align-items:center;justify-content:space-between}
+.mctm{font-size:11px;color:var(--t3)}
+.badge{display:inline-flex;align-items:center;gap:4px;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 1s infinite}
+.nm{text-align:center;padding:36px 16px;color:var(--t3);font-size:13px;line-height:1.8}
+.content{display:flex;flex-direction:column;gap:16px}
+.pbox{background:#000;border-radius:16px;border:1px solid var(--b);aspect-ratio:16/9;overflow:hidden;position:relative}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#111827 0%,#090e1a 70%);gap:12px}
+.phi{width:70px;height:70px;border-radius:50%;background:rgba(230,57,70,0.15);border:2px solid rgba(230,57,70,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--red)}
+.ph h3{font-size:18px;font-weight:500}
+.ph p{font-size:13px;color:var(--t2);text-align:center;max-width:260px}
+.sc{position:absolute;inset:0;display:none}
+.sc iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+.perr{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#1a1a2e 0%,#090e1a 70%);gap:10px}
+.perr h3{font-size:16px;font-weight:500}
+.perr p{font-size:12px;color:var(--t2);text-align:center;max-width:240px}
+.sbar{background:var(--bg1);border:1px solid var(--b);border-top:none;border-radius:0 0 16px 16px;padding:12px 20px;display:none;align-items:center;justify-content:space-between}
+.st{font-size:14px;font-weight:600;flex:1;text-align:center}
+.sc2{text-align:center;padding:0 20px}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--orange);letter-spacing:4px}
+.stm{font-size:11px;color:var(--t2);margin-top:2px}
+.igrid{display:none;grid-template-columns:repeat(4,1fr);gap:10px}
+.ic{background:var(--bg1);border:1px solid var(--b);border-radius:10px;padding:12px 14px}
+.il{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.iv{font-size:13px;font-weight:600}
+.ssrc{background:var(--bg1);border:1px solid var(--b);border-radius:10px;padding:14px 16px;display:none}
+.ssl{font-size:12px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.sbtns{display:flex;gap:8px;flex-wrap:wrap}
+.sbtn{background:var(--bg2);border:1px solid var(--b);color:var(--t2);font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.sbtn:hover{border-color:var(--red);color:var(--t1)}
+.sbtn.active{background:var(--red);border-color:var(--red);color:#fff}
+.spin-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#090e1a;gap:14px}
+.spinner{width:50px;height:50px;border-radius:50%;border:3px solid var(--red);border-top-color:transparent;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.footer{background:var(--bg1);border-top:1px solid var(--b);margin-top:20px}
+.fi{max-width:1400px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.fl{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--red)}
+.fc{font-size:12px;color:var(--t2)}
+.fn{font-size:11px;color:var(--t3);margin-left:auto}
+@media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{position:static;max-height:300px}.igrid{grid-template-columns:repeat(2,1fr)}.nav{display:none}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="hi">
+    <span style="font-size:22px">⚽</span>
+    <span class="logo">GOAL<span>STREAM</span></span>
+    <nav class="nav">
+      <button class="nb active" data-cat="football">Football</button>
+      <button class="nb" data-cat="basketball">Basketball</button>
+      <button class="nb" data-cat="mma">MMA / UFC</button>
+    </nav>
+    <div class="live"><span class="dot"></span><span>LIVE</span></div>
+  </div>
+</header>
+<div class="lbar">
+  <div class="lbi">
+    <button class="lb active" data-l="all">🌍 Dhammaan</button>
+    <button class="lb" data-l="premier">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</button>
+    <button class="lb" data-l="laliga">🇪🇸 La Liga</button>
+    <button class="lb" data-l="seriea">🇮🇹 Serie A</button>
+    <button class="lb" data-l="bundesliga">🇩🇪 Bundesliga</button>
+    <button class="lb" data-l="champions">🏆 Champions League</button>
+    <button class="lb" data-l="worldcup">🌍 World Cup</button>
+  </div>
+</div>
+<main class="main">
+  <aside class="sidebar">
+    <div class="sbh"><h2 class="sbt">Ciyaaraha</h2><button class="rbtn" id="rbtn">↻</button></div>
+    <div class="ml" id="ml"></div>
+  </aside>
+  <section class="content">
+    <div>
+      <div class="pbox">
+        <div class="ph" id="ph"><div class="phi">▶</div><h3>Ciyaar Ka Dooro</h3><p>Bidixda ka dooro ciyaar si aad u daawato</p></div>
+        <div class="sc" id="sc"></div>
+        <div class="perr" id="pe"><div style="font-size:40px">📡</div><h3>Stream Ma Heli Karo</h3><p>Ciyaarkan stream-kiisu ma heli karo. Isku day mid kale.</p></div>
+      </div>
+      <div class="sbar" id="sbar">
+        <div class="st" id="ht">-</div>
+        <div class="sc2"><div class="sn" id="sn">vs</div><div class="stm" id="stm"></div></div>
+        <div class="st" id="at">-</div>
+      </div>
+    </div>
+    <div class="igrid" id="ig">
+      <div class="ic"><div class="il">Xaaladda</div><div class="iv" id="ist">-</div></div>
+      <div class="ic"><div class="il">Tartamada</div><div class="iv" id="ilg">-</div></div>
+      <div class="ic"><div class="il">Wakhtiga</div><div class="iv" id="itm">-</div></div>
+      <div class="ic"><div class="il">Streams</div><div class="iv" id="istr">-</div></div>
+    </div>
+    <div class="ssrc" id="ssrc"><div class="ssl">Stream Sources</div><div class="sbtns" id="sbtns"></div></div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="fi">
+    <span class="fl">⚽ GOALSTREAM</span>
+    <span class="fc">Powered by SportSRC API — 2026</span>
+    <span class="fn">Free Live Sports</span>
+  </div>
+</footer>
+<script>
+const PROXY = 'https://corsproxy.io/?';
+const API = 'https://api.sportsrc.org';
+const KEY = '5b175c43a781894d49be2c68ffc972da';
+const KW = {
+  premier:['premier','epl','liverpool','chelsea','manchester','arsenal','tottenham','brighton','fulham','aston villa','newcastle'],
+  laliga:['la liga','laliga','atletico','real madrid','barcelona','valencia','sevilla','villarreal','betis'],
+  seriea:['serie a','lazio','inter','juventus','milan','napoli','fiorentina','roma','atalanta','cagliari'],
+  bundesliga:['bundesliga','leverkusen','leipzig','dortmund','frankfurt','werder','wolfsburg','hoffenheim'],
+  champions:['champions league','ucl','uefa champions'],
+  worldcup:['world cup','worldcup','fifa world']
+};
+let matches=[],cat='football',league='all',streams=[],idx=0;
+const $=id=>document.getElementById(id);
+
+async function apiFetch(url){
+  try{
+    const r=await fetch(PROXY+encodeURIComponent(url));
+    return await r.json();
+  }catch(e){return null;}
+}
+
+async function load(c){
+  showSk();
+  const today=new Date().toISOString().slice(0,10);
+  const [r1,r2]=await Promise.all([
+    apiFetch(`${API}/?data=matches&category=${c}`),
+    apiFetch(`${API}/v2/?type=matches&sport=${c}&date=${today}`)
+  ]);
+  const a1=Array.isArray(r1)?r1:(r1&&Array.isArray(r1.data)?r1.data:[]);
+  const a2=r2&&Array.isArray(r2.data)?r2.data:[];
+  const seen=new Set();
+  matches=[...a1,...a2].filter(m=>{
+    const id=m.id||m._id||JSON.stringify(m).slice(0,50);
+    if(seen.has(id))return false;
+    seen.add(id);return true;
+  });
+  filterRender();
+}
+
+function filterRender(){
+  if(league==='all'){render(matches);return;}
+  const kws=KW[league]||[];
+  render(matches.filter(m=>{
+    const t=((m.title||m.name||'')+(m.league||m.competition||m.category||m.sport||'')).toLowerCase();
+    return kws.some(k=>t.includes(k));
+  }));
+}
+
+function getFiltered(){
+  if(league==='all')return matches;
+  const kws=KW[league]||[];
+  return matches.filter(m=>{
+    const t=((m.title||m.name||'')+(m.league||m.competition||m.category||m.sport||'')).toLowerCase();
+    return kws.some(k=>t.includes(k));
+  });
+}
+
+function render(list){
+  if(!list||!list.length){
+    $('ml').innerHTML='<div class="nm">⚽<br>Hadda ciyaar ma jirto.<br>Refresh isku day.</div>';
+    return;
+  }
+  $('ml').innerHTML=list.map((m,i)=>{
+    const title=m.title||m.name||'Ciyaar';
+    const lg=m.category||m.league||m.competition||m.sport||'';
+    const ts=m.date?new Date(m.date<1e10?m.date*1000:m.date).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):'';
+    const isLive=m.status==='live'||m.status==='inprogress'||m.live===true;
+    const hs=m.homeScore??m.home_score??'';
+    const as_=m.awayScore??m.away_score??'';
+    const score=(hs!==''&&as_!=='')?`<span style="color:var(--orange);font-weight:700">${hs}-${as_}</span>`:'';
+    return `<div class="mc" data-i="${i}" onclick="pick(${i})">
+      <div class="mct">${title}</div>
+      <div class="mcl">${lg}</div>
+      <div class="mcb">${score||`<span class="mctm">${ts}</span>`}${isLive?'<span class="badge">LIVE</span>':''}</div>
+    </div>`;
+  }).join('');
+}
+
+async function pick(i){
+  const list=getFiltered();
+  const m=list[i];
+  if(!m)return;
+  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('active'));
+  const el=document.querySelector(`.mc[data-i="${i}"]`);
+  if(el){el.classList.add('active');el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  const title=m.title||m.name||'Ciyaar';
+  const parts=title.split(' vs ');
+  const home=parts[0]?.trim()||title;
+  const away=parts[1]?.trim()||'';
+  const lg=m.category||m.league||m.competition||m.sport||'-';
+  const ts=m.date?new Date(m.date<1e10?m.date*1000:m.date).toLocaleString('en-GB',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}):'-';
+  const isLive=m.status==='live'||m.status==='inprogress'||m.live===true;
+  const hs=m.homeScore??m.home_score??'';
+  const as_=m.awayScore??m.away_score??'';
+  const score=(hs!==''&&as_!=='')?`${hs} - ${as_}`:'vs';
+  $('ht').textContent=home;
+  $('at').textContent=away;
+  $('sn').textContent=score;
+  $('stm').textContent=ts;
+  $('ist').textContent=isLive?'🔴 LIVE':'Upcoming';
+  $('ilg').textContent=lg;
+  $('itm').textContent=ts;
+  $('sbar').style.display='flex';
+  $('ig').style.display='grid';
+  showLoad(title);
+  const id=m.id||m._id||m.matchId;
+  if(!id){showErr();$('istr').textContent='0';$('ssrc').style.display='none';return;}
+  const [d1,d2]=await Promise.all([
+    apiFetch(`${API}/?data=detail&category=${cat}&id=${encodeURIComponent(id)}`),
+    apiFetch(`${API}/v2/?type=detail&id=${encodeURIComponent(id)}`)
+  ]);
+  const detail=d1||d2;
+  if(!detail){showErr();$('istr').textContent='0';$('ssrc').style.display='none';return;}
+  streams=extractStreams(detail);
+  $('istr').textContent=streams.length;
+  if(!streams.length){showErr();$('ssrc').style.display='none';return;}
+  $('sbtns').innerHTML=streams.map((s,i)=>`<button class="sbtn${i===0?' active':''}" onclick="sw(${i})">${s.label}</button>`).join('');
+  $('ssrc').style.display='block';
+  loadStream(streams[0]);
+}
+
+function extractStreams(d){
+  const out=[],seen=new Set();
+  const add=(url,label)=>{
+    if(!url||typeof url!=='string'||!url.startsWith('http')||seen.has(url))return;
+    seen.add(url);out.push({label:label||`Source ${out.length+1}`,url});
+  };
+  const items=Array.isArray(d)?d:[d];
+  items.forEach((item,idx)=>{
+    if(!item||typeof item!=='object')return;
+    const data=item.data||item;
+    const target=Array.isArray(data)?data:[data];
+    target.forEach((x,xi)=>{
+      if(!x||typeof x!=='object')return;
+      ['stream','stream_url','embedUrl','embed_url','iframe','iframeUrl','player_url','url','src','link','streamUrl'].forEach(f=>{
+        if(x[f]&&typeof x[f]==='string')add(x[f],`Source ${xi+1}`);
+      });
+      ['streams','sources','players','links'].forEach(f=>{
+        if(Array.isArray(x[f]))x[f].forEach((s,si)=>{
+          const u=typeof s==='string'?s:(s.url||s.src||s.embed||s.iframe||s.stream||s.link);
+          add(u,s.name||s.label||s.title||`Source ${si+1}`);
+        });
+      });
+    });
+  });
+  return out;
+}
+
+function sw(i){
+  idx=i;
+  document.querySelectorAll('.sbtn').forEach((b,j)=>b.classList.toggle('active',i===j));
+  loadStream(streams[i]);
+}
+
+function loadStream(s){
+  $('ph').style.display='none';$('pe').style.display='none';
+  $('sc').style.display='block';
+  $('sc').innerHTML=`<iframe src="${s.url}" allowfullscreen allow="autoplay;encrypted-media" style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>`;
+}
+
+function showLoad(title){
+  $('ph').style.display='none';$('pe').style.display='none';
+  $('sc').style.display='block';
+  $('sc').innerHTML=`<div class="spin-wrap"><div class="spinner"></div><p style="color:#f0f4ff;font-size:14px;font-weight:600;text-align:center;max-width:300px;padding:0 16px">${title}</p><p style="color:#8896b3;font-size:12px">Stream la soo raraa...</p></div>`;
+}
+
+function showErr(){
+  $('ph').style.display='none';$('sc').style.display='none';$('pe').style.display='flex';
+}
+
+function showSk(){
+  $('ml').innerHTML=Array(5).fill('<div class="sk"></div>').join('');
+}
+
+document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.nb').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');cat=b.dataset.cat;league='all';
+  document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.lb[data-l="all"]').classList.add('active');
+  load(cat);
+}));
+
+document.querySelectorAll('.lb').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');league=b.dataset.l;filterRender();
+}));
+
+$('rbtn').addEventListener('click',()=>load(cat));
+load('football');
+</script>
+</body>
+</html>
