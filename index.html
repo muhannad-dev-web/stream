@@ -13,21 +13,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
 .hi{max-width:1400px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:16px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
 .logo span{color:var(--red)}
-.nav{display:flex;gap:4px;margin-left:16px}
-.nb{background:transparent;border:none;color:var(--t2);font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
-.nb:hover{color:var(--t1);background:var(--bg2)}
-.nb.active{background:var(--red);color:#fff}
 .live{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--red);letter-spacing:1px;margin-left:auto}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
-.lbar{background:var(--bg1);border-bottom:1px solid var(--b);overflow-x:auto;scrollbar-width:none}
-.lbar::-webkit-scrollbar{display:none}
-.lbi{display:flex;gap:6px;padding:10px 20px;max-width:1400px;margin:0 auto;white-space:nowrap}
-.lb{background:transparent;border:1px solid var(--b);color:var(--t2);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
-.lb:hover{border-color:var(--red);color:var(--t1)}
-.lb.active{background:var(--red);border-color:var(--red);color:#fff}
 .main{max-width:1400px;margin:0 auto;padding:20px;display:grid;grid-template-columns:300px 1fr;gap:20px}
-.sidebar{background:var(--bg1);border-radius:16px;border:1px solid var(--b);overflow:hidden;max-height:calc(100vh - 155px);display:flex;flex-direction:column;position:sticky;top:80px}
+.sidebar{background:var(--bg1);border-radius:16px;border:1px solid var(--b);overflow:hidden;max-height:calc(100vh - 100px);display:flex;flex-direction:column;position:sticky;top:80px}
 .sbh{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--b)}
 .sbt{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px}
 .rbtn{background:transparent;border:1px solid var(--b);color:var(--t2);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;transition:all 0.3s;display:flex;align-items:center;justify-content:center}
@@ -77,9 +67,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
 .footer{background:var(--bg1);border-top:1px solid var(--b);margin-top:20px}
 .fi{max-width:1400px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .fl{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--red)}
-.fc{font-size:12px;color:var(--t2)}
-.fn{font-size:11px;color:var(--t3);margin-left:auto}
-@media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{position:static;max-height:300px}.igrid{grid-template-columns:repeat(2,1fr)}.nav{display:none}}
+.fc,.fn{font-size:12px;color:var(--t2)}
+.fn{color:var(--t3);margin-left:auto}
+@media(max-width:900px){.main{grid-template-columns:1fr}.sidebar{position:static;max-height:300px}.igrid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -87,25 +77,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
   <div class="hi">
     <span style="font-size:22px">⚽</span>
     <span class="logo">GOAL<span>STREAM</span></span>
-    <nav class="nav">
-      <button class="nb active" data-cat="football">Football</button>
-      <button class="nb" data-cat="basketball">Basketball</button>
-      <button class="nb" data-cat="mma">MMA / UFC</button>
-    </nav>
     <div class="live"><span class="dot"></span><span>LIVE</span></div>
   </div>
 </header>
-<div class="lbar">
-  <div class="lbi">
-    <button class="lb active" data-l="all">🌍 Dhammaan</button>
-    <button class="lb" data-l="premier">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</button>
-    <button class="lb" data-l="laliga">🇪🇸 La Liga</button>
-    <button class="lb" data-l="seriea">🇮🇹 Serie A</button>
-    <button class="lb" data-l="bundesliga">🇩🇪 Bundesliga</button>
-    <button class="lb" data-l="champions">🏆 Champions League</button>
-    <button class="lb" data-l="worldcup">🌍 World Cup</button>
-  </div>
-</div>
+
 <main class="main">
   <aside class="sidebar">
     <div class="sbh"><h2 class="sbt">Ciyaaraha</h2><button class="rbtn" id="rbtn">↻</button></div>
@@ -114,9 +89,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
   <section class="content">
     <div>
       <div class="pbox">
-        <div class="ph" id="ph"><div class="phi">▶</div><h3>Ciyaar Ka Dooro</h3><p>Bidixda ka dooro ciyaar si aad u daawato</p></div>
+        <div class="ph" id="ph">
+          <div class="phi">▶</div>
+          <h3>Ciyaar Ka Dooro</h3>
+          <p>Bidixda ka dooro ciyaar si aad u daawato stream-ka live ah</p>
+        </div>
         <div class="sc" id="sc"></div>
-        <div class="perr" id="pe"><div style="font-size:40px">📡</div><h3>Stream Ma Heli Karo</h3><p>Ciyaarkan stream-kiisu ma heli karo. Isku day mid kale.</p></div>
+        <div class="perr" id="pe">
+          <div style="font-size:40px">📡</div>
+          <h3>Stream Ma Heli Karo</h3>
+          <p>Ciyaarkan stream-kiisu ma heli karo. Isku day mid kale.</p>
+        </div>
       </div>
       <div class="sbar" id="sbar">
         <div class="st" id="ht">-</div>
@@ -133,203 +116,163 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
     <div class="ssrc" id="ssrc"><div class="ssl">Stream Sources</div><div class="sbtns" id="sbtns"></div></div>
   </section>
 </main>
+
 <footer class="footer">
   <div class="fi">
     <span class="fl">⚽ GOALSTREAM</span>
-    <span class="fc">Powered by SportSRC API — 2026</span>
-    <span class="fn">Free Live Sports</span>
+    <span class="fc">Free Live Sports Streaming — 2026</span>
+    <span class="fn">Streams waxay ka imaanayaan saddex-geesoodka</span>
   </div>
 </footer>
+
 <script>
-const PROXY = '/api/proxy?';
-const API = '';
-const KEY = '5b175c43a781894d49be2c68ffc972da';
-const KW = {
-  premier:['premier','epl','liverpool','chelsea','manchester','arsenal','tottenham','brighton','fulham','aston villa','newcastle'],
-  laliga:['la liga','laliga','atletico','real madrid','barcelona','valencia','sevilla','villarreal','betis'],
-  seriea:['serie a','lazio','inter','juventus','milan','napoli','fiorentina','roma','atalanta','cagliari'],
-  bundesliga:['bundesliga','leverkusen','leipzig','dortmund','frankfurt','werder','wolfsburg','hoffenheim'],
-  champions:['champions league','ucl','uefa champions'],
-  worldcup:['world cup','worldcup','fifa world']
-};
-let matches=[],cat='football',league='all',streams=[],idx=0;
+let matches=[], streams=[];
 const $=id=>document.getElementById(id);
 
-async function apiFetch(url){
-  try{
-    const r=await fetch(PROXY+encodeURIComponent(url));
+// Fetch through our Vercel proxy
+async function apiFetch(params) {
+  try {
+    const q = new URLSearchParams(params).toString();
+    const r = await fetch('/api/proxy?' + q);
     return await r.json();
-  }catch(e){return null;}
+  } catch(e) { return null; }
 }
 
-async function load(c){
+async function load() {
   showSk();
-  const today=new Date().toISOString().slice(0,10);
-  const [r1,r2]=await Promise.all([
-    apiFetch(`${API}/?data=matches&category=${c}`),
-    apiFetch(`${API}/v2/?type=matches&sport=${c}&date=${today}`)
+  // Load live matches from streamed.su via proxy
+  const [live, popular] = await Promise.all([
+    apiFetch({ type: 'matches' }),
+    apiFetch({ type: 'today' })
   ]);
-  const a1=Array.isArray(r1)?r1:(r1&&Array.isArray(r1.data)?r1.data:[]);
-  const a2=r2&&Array.isArray(r2.data)?r2.data:[];
-  const seen=new Set();
-  matches=[...a1,...a2].filter(m=>{
-    const id=m.id||m._id||JSON.stringify(m).slice(0,50);
-    if(seen.has(id))return false;
-    seen.add(id);return true;
+
+  const a1 = Array.isArray(live) ? live : [];
+  const a2 = Array.isArray(popular) ? popular : [];
+  const seen = new Set();
+  matches = [...a1, ...a2].filter(m => {
+    if (!m || !m.id || seen.has(m.id)) return false;
+    seen.add(m.id); return true;
   });
-  filterRender();
+
+  render(matches);
 }
 
-function filterRender(){
-  if(league==='all'){render(matches);return;}
-  const kws=KW[league]||[];
-  render(matches.filter(m=>{
-    const t=((m.title||m.name||'')+(m.league||m.competition||m.category||m.sport||'')).toLowerCase();
-    return kws.some(k=>t.includes(k));
-  }));
-}
-
-function getFiltered(){
-  if(league==='all')return matches;
-  const kws=KW[league]||[];
-  return matches.filter(m=>{
-    const t=((m.title||m.name||'')+(m.league||m.competition||m.category||m.sport||'')).toLowerCase();
-    return kws.some(k=>t.includes(k));
-  });
-}
-
-function render(list){
-  if(!list||!list.length){
-    $('ml').innerHTML='<div class="nm">⚽<br>Hadda ciyaar ma jirto.<br>Refresh isku day.</div>';
+function render(list) {
+  if (!list || !list.length) {
+    $('ml').innerHTML = '<div class="nm">⚽<br>Hadda ciyaar ma jirto.<br>Refresh isku day.</div>';
     return;
   }
-  $('ml').innerHTML=list.map((m,i)=>{
-    const title=m.title||m.name||'Ciyaar';
-    const lg=m.category||m.league||m.competition||m.sport||'';
-    const ts=m.date?new Date(m.date<1e10?m.date*1000:m.date).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):'';
-    const isLive=m.status==='live'||m.status==='inprogress'||m.live===true;
-    const hs=m.homeScore??m.home_score??'';
-    const as_=m.awayScore??m.away_score??'';
-    const score=(hs!==''&&as_!=='')?`<span style="color:var(--orange);font-weight:700">${hs}-${as_}</span>`:'';
+  $('ml').innerHTML = list.map((m, i) => {
+    const home = m.teams?.home?.name || m.title?.split(' vs ')[0] || 'Home';
+    const away = m.teams?.away?.name || m.title?.split(' vs ')[1] || 'Away';
+    const title = `${home} vs ${away}`;
+    const league = m.category || m.league || '';
+    const ts = m.date ? new Date(m.date * 1000).toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'}) : '';
+    const isLive = m.status === 'live' || m.live === true;
+    const hasSrc = m.sources && m.sources.length > 0;
     return `<div class="mc" data-i="${i}" onclick="pick(${i})">
       <div class="mct">${title}</div>
-      <div class="mcl">${lg}</div>
-      <div class="mcb">${score||`<span class="mctm">${ts}</span>`}${isLive?'<span class="badge">LIVE</span>':''}</div>
+      <div class="mcl">${league}</div>
+      <div class="mcb">
+        <span class="mctm">${ts}</span>
+        <div style="display:flex;gap:4px">
+          ${isLive ? '<span class="badge">LIVE</span>' : ''}
+          ${hasSrc ? '<span style="font-size:9px;color:#4ade80;font-weight:600">▶ Stream</span>' : ''}
+        </div>
+      </div>
     </div>`;
   }).join('');
 }
 
-async function pick(i){
-  const list=getFiltered();
-  const m=list[i];
-  if(!m)return;
-  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('active'));
-  const el=document.querySelector(`.mc[data-i="${i}"]`);
-  if(el){el.classList.add('active');el.scrollIntoView({block:'nearest',behavior:'smooth'});}
-  const title=m.title||m.name||'Ciyaar';
-  const parts=title.split(' vs ');
-  const home=parts[0]?.trim()||title;
-  const away=parts[1]?.trim()||'';
-  const lg=m.category||m.league||m.competition||m.sport||'-';
-  const ts=m.date?new Date(m.date<1e10?m.date*1000:m.date).toLocaleString('en-GB',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}):'-';
-  const isLive=m.status==='live'||m.status==='inprogress'||m.live===true;
-  const hs=m.homeScore??m.home_score??'';
-  const as_=m.awayScore??m.away_score??'';
-  const score=(hs!==''&&as_!=='')?`${hs} - ${as_}`:'vs';
-  $('ht').textContent=home;
-  $('at').textContent=away;
-  $('sn').textContent=score;
-  $('stm').textContent=ts;
-  $('ist').textContent=isLive?'🔴 LIVE':'Upcoming';
-  $('ilg').textContent=lg;
-  $('itm').textContent=ts;
-  $('sbar').style.display='flex';
-  $('ig').style.display='grid';
-  showLoad(title);
-  const id=m.id||m._id||m.matchId;
-  if(!id){showErr();$('istr').textContent='0';$('ssrc').style.display='none';return;}
-  const [d1,d2]=await Promise.all([
-    apiFetch(`${API}/?data=detail&category=${cat}&id=${encodeURIComponent(id)}`),
-    apiFetch(`${API}/v2/?type=detail&id=${encodeURIComponent(id)}`)
-  ]);
-  const detail=d1||d2;
-  if(!detail){showErr();$('istr').textContent='0';$('ssrc').style.display='none';return;}
-  streams=extractStreams(detail);
-  $('istr').textContent=streams.length;
-  if(!streams.length){showErr();$('ssrc').style.display='none';return;}
-  $('sbtns').innerHTML=streams.map((s,i)=>`<button class="sbtn${i===0?' active':''}" onclick="sw(${i})">${s.label}</button>`).join('');
-  $('ssrc').style.display='block';
+async function pick(i) {
+  const m = matches[i];
+  if (!m) return;
+
+  document.querySelectorAll('.mc').forEach(c => c.classList.remove('active'));
+  const el = document.querySelector(`.mc[data-i="${i}"]`);
+  if (el) { el.classList.add('active'); el.scrollIntoView({block:'nearest',behavior:'smooth'}); }
+
+  const home = m.teams?.home?.name || m.title?.split(' vs ')[0] || 'Home';
+  const away = m.teams?.away?.name || m.title?.split(' vs ')[1] || 'Away';
+  const ts = m.date ? new Date(m.date * 1000).toLocaleString('en-GB', {hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}) : '-';
+  const isLive = m.status === 'live' || m.live === true;
+
+  $('ht').textContent = home;
+  $('at').textContent = away;
+  $('sn').textContent = 'vs';
+  $('stm').textContent = ts;
+  $('ist').textContent = isLive ? '🔴 LIVE' : 'Upcoming';
+  $('ilg').textContent = m.category || m.league || '-';
+  $('itm').textContent = ts;
+  $('sbar').style.display = 'flex';
+  $('ig').style.display = 'grid';
+
+  showLoad(`${home} vs ${away}`);
+
+  // Get streams from sources
+  const sources = m.sources || [];
+  if (sources.length === 0) {
+    showErr(); $('istr').textContent = '0'; $('ssrc').style.display = 'none'; return;
+  }
+
+  // Fetch all stream sources in parallel
+  const streamResults = await Promise.all(
+    sources.map(src => apiFetch({ type: 'stream', id: m.id, source: src.source || src.id || src }))
+  );
+
+  streams = [];
+  streamResults.forEach((result, idx) => {
+    if (!result) return;
+    const list = Array.isArray(result) ? result : [result];
+    list.forEach((s, si) => {
+      if (s && s.embedUrl) {
+        streams.push({ label: `HD ${streams.length + 1}`, url: s.embedUrl });
+      } else if (s && s.url) {
+        streams.push({ label: `Source ${streams.length + 1}`, url: s.url });
+      }
+    });
+  });
+
+  $('istr').textContent = streams.length;
+
+  if (!streams.length) {
+    showErr(); $('ssrc').style.display = 'none'; return;
+  }
+
+  $('sbtns').innerHTML = streams.map((s, i) =>
+    `<button class="sbtn${i===0?' active':''}" onclick="sw(${i})">${s.label}</button>`
+  ).join('');
+  $('ssrc').style.display = 'block';
   loadStream(streams[0]);
 }
 
-function extractStreams(d){
-  const out=[],seen=new Set();
-  const add=(url,label)=>{
-    if(!url||typeof url!=='string'||!url.startsWith('http')||seen.has(url))return;
-    seen.add(url);out.push({label:label||`Source ${out.length+1}`,url});
-  };
-  const items=Array.isArray(d)?d:[d];
-  items.forEach((item,idx)=>{
-    if(!item||typeof item!=='object')return;
-    const data=item.data||item;
-    const target=Array.isArray(data)?data:[data];
-    target.forEach((x,xi)=>{
-      if(!x||typeof x!=='object')return;
-      ['stream','stream_url','embedUrl','embed_url','iframe','iframeUrl','player_url','url','src','link','streamUrl'].forEach(f=>{
-        if(x[f]&&typeof x[f]==='string')add(x[f],`Source ${xi+1}`);
-      });
-      ['streams','sources','players','links'].forEach(f=>{
-        if(Array.isArray(x[f]))x[f].forEach((s,si)=>{
-          const u=typeof s==='string'?s:(s.url||s.src||s.embed||s.iframe||s.stream||s.link);
-          add(u,s.name||s.label||s.title||`Source ${si+1}`);
-        });
-      });
-    });
-  });
-  return out;
-}
-
-function sw(i){
-  idx=i;
-  document.querySelectorAll('.sbtn').forEach((b,j)=>b.classList.toggle('active',i===j));
+function sw(i) {
+  document.querySelectorAll('.sbtn').forEach((b,j) => b.classList.toggle('active', i===j));
   loadStream(streams[i]);
 }
 
-function loadStream(s){
-  $('ph').style.display='none';$('pe').style.display='none';
+function loadStream(s) {
+  $('ph').style.display='none'; $('pe').style.display='none';
   $('sc').style.display='block';
   $('sc').innerHTML=`<iframe src="${s.url}" allowfullscreen allow="autoplay;encrypted-media" style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>`;
 }
 
-function showLoad(title){
-  $('ph').style.display='none';$('pe').style.display='none';
+function showLoad(title) {
+  $('ph').style.display='none'; $('pe').style.display='none';
   $('sc').style.display='block';
   $('sc').innerHTML=`<div class="spin-wrap"><div class="spinner"></div><p style="color:#f0f4ff;font-size:14px;font-weight:600;text-align:center;max-width:300px;padding:0 16px">${title}</p><p style="color:#8896b3;font-size:12px">Stream la soo raraa...</p></div>`;
 }
 
-function showErr(){
-  $('ph').style.display='none';$('sc').style.display='none';$('pe').style.display='flex';
+function showErr() {
+  $('ph').style.display='none'; $('sc').style.display='none'; $('pe').style.display='flex';
 }
 
-function showSk(){
-  $('ml').innerHTML=Array(5).fill('<div class="sk"></div>').join('');
+function showSk() {
+  $('ml').innerHTML = Array(5).fill('<div class="sk"></div>').join('');
 }
 
-document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.nb').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');cat=b.dataset.cat;league='all';
-  document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));
-  document.querySelector('.lb[data-l="all"]').classList.add('active');
-  load(cat);
-}));
-
-document.querySelectorAll('.lb').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');league=b.dataset.l;filterRender();
-}));
-
-$('rbtn').addEventListener('click',()=>load(cat));
-load('football');
+$('rbtn').addEventListener('click', load);
+load();
 </script>
 </body>
 </html>
